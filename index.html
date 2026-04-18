@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>JC Solares | Front-end Portfolio</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* Sticky navigation with glassmorphism effect */
+    nav {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      color: #f1f5f9;
+      padding: 0.9rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2.2rem;
+      flex-wrap: wrap;
+    }
+
+    nav ul li a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      letter-spacing: -0.2px;
+      transition: all 0.2s ease;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    nav ul li a:hover {
+      color: #ffffff;
+      border-bottom-color: #3b82f6;
+    }
+
+    /* main container: centered cards */
+    section {
+      max-width: 1200px;
+      margin: 2.5rem auto;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      scroll-margin-top: 90px;
+    }
+
+    section:hover {
+      box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.12);
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(135deg, #1e293b, #2d3a5e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    h2:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: #3b82f6;
+      border-radius: 4px;
+    }
+
+    /* buttons & interactive */
+    button {
+      background: #0f172a;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.8rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    button i {
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    /* projects grid (coming soon style) */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      background: #fefefe;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      border: 1px solid #eef2ff;
+      transition: all 0.25s;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: #cbd5e1;
+      box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-icon {
+      font-size: 2.5rem;
+      color: #3b82f6;
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .coming-soon-badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #1e40af;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.9rem;
+      border-radius: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.3px;
+    }
+
+    .project-card p {
+      color: #334155;
+      margin-bottom: 1.2rem;
+    }
+
+    /* about me skills chips */
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1.2rem;
+      list-style: none;
+    }
+
+    .skills-list li {
+      background: #f1f5f9;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #0f172a;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skills-list li i {
+      color: #3b82f6;
+      font-size: 0.8rem;
+    }
+
+    /* resume style - no dates anywhere */
+    .resume-details {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 1.2rem;
+      margin: 1.2rem 0 1.5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: space-between;
+    }
+    .resume-details div {
+      flex: 1;
+    }
+    .resume-details p {
+      margin-bottom: 0.5rem;
+    }
+    .resume-details strong {
+      color: #0f172a;
+    }
+
+    /* contact form */
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    form {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-info {
+      flex: 1;
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 1.2rem;
+    }
+    .contact-info p {
+      margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .contact-info i {
+      width: 28px;
+      color: #3b82f6;
+      font-size: 1.2rem;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      background: #ffffff;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    }
+    .form-message {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #15803d;
+      font-weight: 500;
+    }
+
+    /* extra content styling */
+    #extraContent {
+      background: #f1f5f9;
+      margin-top: 1.8rem;
+      padding: 1.2rem;
+      border-radius: 1rem;
+      text-align: left;
+      border-left: 4px solid #3b82f6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #475569;
+      font-size: 0.85rem;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 2rem;
+      background: #ffffff;
+    }
+
+    /* responsiveness */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1rem;
+      }
+      section {
+        margin: 1.5rem 1rem;
+        padding: 1.8rem;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      h2 {
+        font-size: 1.7rem;
+      }
+      .resume-details {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .contact-wrapper {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav ul {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      nav {
+        padding: 0.7rem 1rem;
+      }
+      button {
+        padding: 0.6rem 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation - clean sticky bar -->
+  <nav>
+    <ul>
+      <li><a href="#home"><i class="fas fa-home" style="margin-right: 6px;"></i>Home</a></li>
+      <li><a href="#about"><i class="fas fa-user" style="margin-right: 6px;"></i>About</a></li>
+      <li><a href="#projects"><i class="fas fa-code-branch" style="margin-right: 6px;"></i>Projects</a></li>
+      <li><a href="#resume"><i class="fas fa-file-alt" style="margin-right: 6px;"></i>Resume</a></li>
+      <li><a href="#contact"><i class="fas fa-envelope" style="margin-right: 6px;"></i>Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME Section -->
+  <section id="home">
+    <h1>JC Solares</h1>
+    <p style="font-size: 1.2rem; color: #334155; max-width: 700px; margin: 0 auto 1.5rem auto;">BSIT student & front-end enthusiast — building clean, responsive web experiences.</p>
+    <button id="viewMoreBtn"><i class="fas fa-chevron-down"></i> View More</button>
+    <div id="extraContent" style="display:none;">
+      <p><i class="fas fa-lightbulb" style="color:#f59e0b; margin-right: 10px;"></i> I'm focused on mastering HTML, CSS, and JavaScript to create intuitive interfaces. Currently exploring modern frameworks and always open to collaboration and new opportunities!</p>
+    </div>
+  </section>
+
+  <!-- ABOUT ME - updated for BSIT student at Cavite State University -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p style="font-size: 1rem; margin-bottom: 1.2rem;">I'm a dedicated BS Information Technology student at <strong>Cavite State University</strong> with a passion for front-end development. I love turning ideas into responsive, user-friendly websites and continuously learning modern web standards.</p>
+    <ul class="skills-list">
+      <li><i class="fab fa-html5"></i> HTML5</li>
+      <li><i class="fab fa-css3-alt"></i> CSS3 / Flexbox/Grid</li>
+      <li><i class="fab fa-js"></i> JavaScript (ES6+)</li>
+      <li><i class="fab fa-git-alt"></i> Git & GitHub</li>
+      <li><i class="fas fa-mobile-alt"></i> Responsive Design</li>
+      <li><i class="fas fa-paint-brush"></i> UI Fundamentals</li>
+    </ul>
+    <p style="margin-top: 1.4rem;"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color:#3b82f6;"></i> Cavite, Philippines | Open for internships & junior roles</p>
+  </section>
+
+  <!-- PROJECTS SECTION (Coming Soon) - no images, simple placeholders -->
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <p style="margin-bottom: 2rem; color: #475569;">Exploring front-end concepts — more exciting work coming soon.</p>
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-weather-sun"></i></div>
+        <div class="coming-soon-badge"><i class="fas fa-hourglass-half"></i> Coming Soon</div>
+        <h3>Weather Dashboard</h3>
+        <p>Live weather app using vanilla JS and a public API — clean UI with dynamic updates.</p>
+        <span style="font-size: 0.8rem; color:#3b82f6;"><i class="fas fa-code"></i> HTML · CSS · JavaScript</span>
+      </div>
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-tasks"></i></div>
+        <div class="coming-soon-badge"><i class="fas fa-hourglass-half"></i> Coming Soon</div>
+        <h3>TaskFlow Manager</h3>
+        <p>Productivity tool to organize tasks with drag & drop and local storage persistence.</p>
+        <span style="font-size: 0.8rem; color:#3b82f6;"><i class="fas fa-code"></i> HTML5 · CSS Grid · JS</span>
+      </div>
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-store"></i></div>
+        <div class="coming-soon-badge"><i class="fas fa-hourglass-half"></i> Coming Soon</div>
+        <h3>Portfolio Explorer</h3>
+        <p>Interactive portfolio template with dark/light mode and smooth animations.</p>
+        <span style="font-size: 0.8rem; color:#3b82f6;"><i class="fab fa-css3"></i> CSS variables · JS events</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME Section - no dates, Cavite State University, still studying -->
+  <section id="resume">
+    <h2>Resume</h2>
+    <div class="resume-details">
+      <div>
+        <p><strong><i class="fas fa-graduation-cap"></i> Education</strong></p>
+        <p>BS in Information Technology<br>Cavite State University<br>Major in Web Development | Consistent Dean’s Lister</p>
+      </div>
+      <div>
+        <p><strong><i class="fas fa-laptop-code"></i> Course Highlights</strong></p>
+        <p>Front-end Development, UI/UX Principles, JavaScript Programming, Database Systems</p>
+      </div>
+      <div>
+        <p><strong><i class="fas fa-cogs"></i> Core Front-end Stack</strong></p>
+        <p>HTML5, CSS3, JavaScript (ES6), Git, Responsive Layouts, REST APIs basics</p>
+      </div>
+    </div>
+    <button id="downloadCVBtn"><i class="fas fa-download"></i> Download CV (PDF)</button>
+  </section>
+
+  <!-- CONTACT Section -->
+  <section id="contact">
+    <h2>Let's Connect</h2>
+    <div class="contact-wrapper">
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Full name *" required>
+        <input type="email" id="email" placeholder="Email address *" required>
+        <textarea id="message" rows="4" placeholder="Tell me about your project, collaboration, or feedback..." required></textarea>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+        <div id="formFeedback" class="form-message"></div>
+      </form>
+      <div class="contact-info">
+        <p><i class="fas fa-envelope"></i> jc.solares@cvsu.edu.ph</p>
+        <p><i class="fab fa-github"></i> github.com/jcsolares</p>
+        <p><i class="fab fa-linkedin"></i> linkedin.com/in/jc-solares</p>
+        <hr style="margin: 1rem 0; border-color: #e2e8f0;">
+        <p><i class="fas fa-clock"></i> Usually reply within 24h</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 JC Solares — Built with <i class="fas fa-heart" style="color:#ef4444;"></i> using HTML, CSS & JS. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      // 1. VIEW MORE BUTTON toggles extra content
+      const viewBtn = document.getElementById('viewMoreBtn');
+      const extraDiv = document.getElementById('extraContent');
+      if (viewBtn && extraDiv) {
+        viewBtn.addEventListener('click', () => {
+          const isHidden = extraDiv.style.display === 'none';
+          if (isHidden) {
+            extraDiv.style.display = 'block';
+            viewBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Show Less';
+          } else {
+            extraDiv.style.display = 'none';
+            viewBtn.innerHTML = '<i class="fas fa-chevron-down"></i> View More';
+          }
+        });
+      }
+
+      // 2. DOWNLOAD CV BUTTON - generates student CV with no dates, Cavite State University
+      const downloadBtn = document.getElementById('downloadCVBtn');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+          const cvContent = `JC SOLARES — FRONT-END PORTFOLIO CV
+====================================
+📧 jc.solares@cvsu.edu.ph
+🌐 github.com/jcsolares  |  linkedin.com/in/jc-solares
+📍 Cavite, Philippines
+
+🎓 EDUCATION
+BS in Information Technology (Web Development track)
+Cavite State University
+• Consistent Dean’s Lister
+• Relevant coursework: Web Design, JavaScript, UI/UX, Database Management
+
+🛠️ TECHNICAL SKILLS
+• Languages: HTML5, CSS3, JavaScript (ES6+), basic SQL
+• Tools & Methods: Git, GitHub, VS Code, Chrome DevTools, Figma
+• Concepts: Responsive design, Flexbox/Grid, DOM manipulation, fetch API
+
+📌 PERSONAL PROJECTS (In development)
+• Weather Dashboard: real-time weather data using vanilla JS & OpenWeather API.
+• TaskFlow Manager: drag-and-drop task organizer with local storage.
+• Portfolio Explorer: interactive portfolio template with theme toggle.
+
+💡 ADDITIONAL
+• Active member of university Web Dev Club
+• Completed freeCodeCamp Responsive Web Design certification
+• Passionate about clean code and performance optimization
+
+References available upon request.
+Generated: ${new Date().toLocaleDateString()}
+      `;
+          const blob = new Blob([cvContent], { type: 'text/plain' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'JC_Solares_CV.txt';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          // temporary button feedback
+          const originalHTML = downloadBtn.innerHTML;
+          downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+          setTimeout(() => {
+            downloadBtn.innerHTML = originalHTML;
+          }, 2000);
+        });
+      }
+
+      // 3. CONTACT FORM: simple validation and success simulation
+      const contactForm = document.getElementById('contactForm');
+      const feedbackDiv = document.getElementById('formFeedback');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameInput = document.getElementById('name');
+          const emailInput = document.getElementById('email');
+          const msgInput = document.getElementById('message');
+          
+          const name = nameInput.value.trim();
+          const email = emailInput.value.trim();
+          const message = msgInput.value.trim();
+          
+          if (!name || !email || !message) {
+            feedbackDiv.innerHTML = '<span style="color:#b91c1c;"><i class="fas fa-exclamation-circle"></i> All fields are required.</span>';
+            setTimeout(() => {
+              if (feedbackDiv) feedbackDiv.innerHTML = '';
+            }, 3000);
+            return;
+          }
+          if (!email.includes('@') || !email.includes('.')) {
+            feedbackDiv.innerHTML = '<span style="color:#b91c1c;"><i class="fas fa-envelope"></i> Please enter a valid email address.</span>';
+            setTimeout(() => {
+              if (feedbackDiv) feedbackDiv.innerHTML = '';
+            }, 3000);
+            return;
+          }
+          
+          // Success feedback (front-end only)
+          feedbackDiv.innerHTML = `<span style="color:#15803d;"><i class="fas fa-check-circle"></i> Thanks ${name}! Your message has been sent. I'll get back to you soon.</span>`;
+          contactForm.reset();
+          setTimeout(() => {
+            if (feedbackDiv) feedbackDiv.innerHTML = '';
+          }, 5000);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
